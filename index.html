@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent D1VY4 - Autonomous Portfolio System</title>
+    <title>Divya Nautiyal - AI Agent Developer</title>
     <style>
         * {
             margin: 0;
@@ -12,671 +12,947 @@
         }
         
         body {
-            font-family: 'Courier New', monospace;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #00ff41;
-            background: #000;
+            color: #e5e7eb;
+            background: radial-gradient(ellipse at top, #1e1b4b 0%, #312e81 25%, #1f2937 50%, #111827 100%);
             min-height: 100vh;
-            overflow-x: hidden;
             position: relative;
+            overflow-x: hidden;
         }
         
-        /* Matrix rain effect */
-        .matrix-rain {
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Neural network connections */
+        .neural-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
+            opacity: 0.4;
         }
         
-        .matrix-column {
+        .neural-node {
             position: absolute;
-            top: -100%;
-            font-size: 14px;
-            color: #00ff41;
-            animation: fall linear infinite;
+            width: 4px;
+            height: 4px;
+            background: #6366f1;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #6366f1;
+            animation: nodePulse 3s ease-in-out infinite;
+        }
+        
+        .neural-connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            animation: connectionFlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes nodePulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        @keyframes connectionFlow {
+            0% { opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+        
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: linear-gradient(45deg, #60a5fa, #a78bfa);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
             opacity: 0.7;
         }
         
-        @keyframes fall {
-            0% { top: -100%; opacity: 1; }
-            100% { top: 100%; opacity: 0; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
         }
         
-        /* Terminal styling */
-        .terminal-container {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #00ff41;
-            border-radius: 10px;
-            margin: 20px auto;
+        .container {
             max-width: 1200px;
-            box-shadow: 0 0 50px rgba(0, 255, 65, 0.3);
-            backdrop-filter: blur(5px);
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
         
-        .terminal-header {
-            background: linear-gradient(90deg, #00ff41, #00cc33);
-            color: #000;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-radius: 8px 8px 0 0;
-            font-weight: bold;
-        }
-        
-        .terminal-dots {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ff0000;
-        }
-        
-        .dot.yellow { background: #ffff00; }
-        .dot.green { background: #00ff00; }
-        
-        .terminal-content {
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .prompt {
-            color: #00ff41;
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .prompt::before {
-            content: "agent@d1vy4:~$ ";
-            color: #ff6b6b;
-            margin-right: 5px;
-        }
-        
-        .typing-animation {
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid #00ff41;
-            animation: typing 3s steps(40) 1s both, blink 1s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        
-        @keyframes blink {
-            0%, 50% { border-color: #00ff41; }
-            51%, 100% { border-color: transparent; }
-        }
-        
-        .system-status {
-            background: rgba(0, 255, 65, 0.1);
-            border-left: 4px solid #00ff41;
-            padding: 15px;
-            margin: 20px 0;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .status-line {
-            display: flex;
-            justify-content: space-between;
-            margin: 5px 0;
-        }
-        
-        .status-ok {
-            color: #00ff41;
-        }
-        
-        .status-warning {
-            color: #ffff00;
-        }
-        
-        .ascii-art {
-            color: #00ff41;
-            font-family: monospace;
-            font-size: 12px;
-            line-height: 1.2;
+        /* Header */
+        .header {
             text-align: center;
+            padding: 4rem 0 2rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
             margin: 20px 0;
-            white-space: pre-line;
-        }
-        
-        .glitch {
-            animation: glitch 2s infinite;
-        }
-        
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-        
-        .agent-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .info-panel {
-            background: rgba(0, 255, 65, 0.05);
-            border: 1px solid #00ff41;
-            padding: 20px;
-            border-radius: 5px;
-        }
-        
-        .info-panel h3 {
-            color: #ff6b6b;
-            border-bottom: 1px solid #00ff41;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .capability-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .capability-card {
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(255, 107, 107, 0.1));
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            border-radius: 10px;
-            padding: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
         }
         
-        .capability-card::before {
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .name-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #06b6d4 50%, #10b981 75%, #6366f1 100%);
+            background-size: 300% 300%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: gradientFlow 4s ease infinite;
+            text-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+        }
+        
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            background: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .contact-item:hover {
+            background: rgba(96, 165, 250, 0.2);
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(96, 165, 250, 0.2);
+        }
+        
+        /* Status indicator */
+        .status-bar {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-bar::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: scanLine 3s ease-in-out infinite;
         }
         
-        .capability-card:hover::before {
-            left: 100%;
+        @keyframes scanLine {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
         
-        .capability-card:hover {
-            border-color: #00ff41;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .status-label {
+            color: #94a3b8;
+        }
+        
+        .status-value {
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        .status-warning {
+            color: #f59e0b;
+        }
+        
+        /* Section styling */
+        .section {
+            margin: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #60a5fa;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            border-radius: 2px;
+        }
+        
+        /* Featured project */
+        .featured-project {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .featured-project::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4, #10b981, #6366f1);
+            background-size: 400% 400%;
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderGlow 4s ease infinite;
+        }
+        
+        .featured-project::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 18px;
+            z-index: -1;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .featured-project:hover {
             transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(96, 165, 250, 0.2);
         }
         
-        .capability-header {
+        .project-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
         }
         
-        .status-indicator {
-            width: 8px;
-            height: 8px;
-            background: #00ff41;
-            border-radius: 50%;
+        .project-title {
+            font-size: 2rem;
+            color: #60a5fa;
+            margin: 0;
+        }
+        
+        .status-badge {
+            background: linear-gradient(45deg, #10b981, #06d6a0);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
             animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
         }
         
-        .tech-matrix {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
+        .project-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #cbd5e1;
+            line-height: 1.7;
         }
         
-        .tech-chip {
-            background: rgba(0, 255, 65, 0.2);
-            color: #00ff41;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            border: 1px solid #00ff41;
-            font-family: 'Courier New', monospace;
+        /* Project grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
         
-        .neural-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .neural-link {
-            background: linear-gradient(45deg, #00ff41, #ff6b6b);
-            color: #000;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
+        .project-card {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
         
-        .neural-link::before {
+        .project-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.3s;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            transition: left 0.6s;
         }
         
-        .neural-link:hover::before {
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            padding: 1px;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover::before {
             left: 100%;
         }
         
-        .neural-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        .project-card:hover::after {
+            opacity: 1;
         }
         
-        .connection-status {
-            margin: 30px 0;
-            text-align: center;
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.4);
         }
         
-        .connection-animation {
-            display: inline-flex;
+        .project-card h3 {
+            color: #60a5fa;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
             align-items: center;
-            gap: 5px;
-            color: #00ff41;
+            gap: 0.5rem;
         }
         
-        .connection-dot {
-            width: 6px;
-            height: 6px;
-            background: #00ff41;
-            border-radius: 50%;
-            animation: connect 1.5s ease-in-out infinite;
+        .project-card p {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
         
-        .connection-dot:nth-child(2) { animation-delay: 0.2s; }
-        .connection-dot:nth-child(3) { animation-delay: 0.4s; }
-        .connection-dot:nth-child(4) { animation-delay: 0.6s; }
-        .connection-dot:nth-child(5) { animation-delay: 0.8s; }
-        
-        @keyframes connect {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+        /* Tech tags */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
         }
         
-        .quantum-footer {
-            background: rgba(0, 255, 65, 0.1);
-            border-top: 2px solid #00ff41;
-            padding: 30px;
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        .shutdown-prompt {
-            color: #ff6b6b;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-        
-        .initiate-btn {
-            background: linear-gradient(45deg, #ff6b6b, #00ff41);
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
+        .tech-tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.3s ease;
+        }
+        
+        .tech-tag:hover::before {
+            left: 100%;
+        }
+        
+        .tech-tag:hover {
+            background: rgba(99, 102, 241, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Project links */
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .project-link {
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
             text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.3s ease;
+        }
+        
+        .project-link:hover::before {
+            left: 100%;
+        }
+        
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .project-link.demo {
+            background: linear-gradient(45deg, #10b981, #06d6a0);
+        }
+        
+        .project-link.demo:hover {
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        }
+        
+        /* Skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .skill-category {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            border-color: rgba(96, 165, 250, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(96, 165, 250, 0.1);
+        }
+        
+        .skill-category h3 {
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .skill-list {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+        
+        /* Call to action */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            margin: 4rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cta-title {
+            font-size: 2.2rem;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-text {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .cta-button {
             display: inline-block;
+            background: linear-gradient(45deg, #60a5fa, #a78bfa);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(96, 165, 250, 0.2);
         }
         
-        .initiate-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(96, 165, 250, 0.3);
         }
         
+        /* Responsive design */
         @media (max-width: 768px) {
-            .agent-info {
+            .name-title {
+                font-size: 2.5rem;
+            }
+            
+            .contact-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .projects-grid {
                 grid-template-columns: 1fr;
             }
             
-            .terminal-container {
-                margin: 10px;
+            .featured-project {
+                padding: 2rem;
             }
             
-            .ascii-art {
-                font-size: 8px;
+            .project-header {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
         
-        /* Scanline effect */
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00ff41, transparent);
-            animation: scan 3s linear infinite;
-            z-index: 1000;
-            pointer-events: none;
+        /* Highlight effects */
+        .highlight {
+            color: #f472b6;
+            font-weight: 600;
         }
         
-        @keyframes scan {
-            0% { top: 0; opacity: 1; }
-            100% { top: 100%; opacity: 0; }
+        .glow {
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+        }
+        
+        /* Loading animation */
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+            margin-left: 10px;
+        }
+        
+        .loading-dot {
+            width: 6px;
+            height: 6px;
+            background: #60a5fa;
+            border-radius: 50%;
+            animation: loadingBounce 1.4s ease-in-out infinite both;
+        }
+        
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes loadingBounce {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <!-- Matrix rain effect -->
-    <div class="matrix-rain" id="matrixRain"></div>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
     
-    <!-- Scanline effect -->
-    <div class="scanline"></div>
+    <!-- Neural network background -->
+    <div class="neural-bg" id="neuralBg"></div>
     
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-dots">
-                <div class="dot"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="name-title glow">Divya Nautiyal</h1>
+            <p class="subtitle">Python Blockchain Developer & AI Engineer</p>
+            
+            <div class="contact-grid">
+                <a href="mailto:divyanautiyal07@gmail.com" class="contact-item">
+                    📧 divyanautiyal07@gmail.com
+                </a>
+                <a href="https://github.com/divyanautiyal" class="contact-item" target="_blank">
+                    🔗 GitHub
+                </a>
+                <a href="https://linkedin.com/in/divyanautiyal" class="contact-item" target="_blank">
+                    💼 LinkedIn
+                </a>
+                <span class="contact-item">📍 Delhi, India</span>
             </div>
-            <span>AGENT_D1VY4_PORTFOLIO_SYSTEM_v3.14 - [ACTIVE]</span>
+        </header>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-label">🤖 Current Role:</span>
+                <span class="status-value">Python Engineer @ Valory</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">⚡ Focus Area:</span>
+                <span class="status-value">Autonomous Agent Development</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">🔗 Specialization:</span>
+                <span class="status-value">DeFi Systems</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">🚀 Status:</span>
+                <span class="status-warning">Building Next-Gen Agents
+                    <div class="loading-dots">
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                    </div>
+                </span>
+            </div>
         </div>
         
-        <div class="terminal-content">
-            <div class="prompt">
-                <span class="typing-animation">./initialize_agent_portfolio.sh</span>
-            </div>
-            
-            <div class="system-status">
-                <div class="status-line">
-                    <span>► AGENT STATUS:</span>
-                    <span class="status-ok">[ONLINE]</span>
+        <!-- Featured Project -->
+        <section class="section">
+            <h2 class="section-title">Featured Project</h2>
+            <div class="featured-project">
+                <div class="project-header">
+                    <h3 class="project-title">🤖 Optimus - Cross-Chain DeFi Agent</h3>
+                    <span class="status-badge">Live Agent</span>
                 </div>
-                <div class="status-line">
-                    <span>► NEURAL NETWORKS:</span>
-                    <span class="status-ok">[OPTIMIZED]</span>
+                <p class="project-description">
+                    <strong>Cross-chain DeFi agent built with Open Autonomy Framework:</strong> Autonomous agent for participating in DeFi activities across <span class="highlight">Optimism</span> and <span class="highlight">Mode</span> networks 
+                    with multi-Dex integration including Velodrome, Uniswap, Balancer, and Sturdy.
+                </p>
+                <p class="project-description">
+                    Features intelligent decision-making for liquidity provision and utilizes <span class="highlight">Python</span> with the 
+                    <span class="highlight">Open Autonomy framework</span> for building truly autonomous agents.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Open Autonomy</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Velodrome</span>
+                    <span class="tech-tag">Uniswap</span>
+                    <span class="tech-tag">Sturdy</span>
+                    <span class="tech-tag">Balancer</span>
+                    <span class="tech-tag">Tenderly</span>
                 </div>
-                <div class="status-line">
-                    <span>► WEB3 PROTOCOLS:</span>
-                    <span class="status-ok">[CONNECTED]</span>
-                </div>
-                <div class="status-line">
-                    <span>► AUTONOMOUS MODE:</span>
-                    <span class="status-warning">[LEARNING]</span>
-                </div>
-            </div>
-            
-            <div class="ascii-art glitch">
-    ██████╗ ██╗██╗   ██╗██╗   ██╗ █████╗     ███╗   ██╗ █████╗ ██╗   ██╗████████╗██╗██╗   ██╗ █████╗ ██╗     
-    ██╔══██╗██║██║   ██║╚██╗ ██╔╝██╔══██╗    ████╗  ██║██╔══██╗██║   ██║╚══██╔══╝██║╚██╗ ██╔╝██╔══██╗██║     
-    ██║  ██║██║██║   ██║ ╚████╔╝ ███████║    ██╔██╗ ██║███████║██║   ██║   ██║   ██║ ╚████╔╝ ███████║██║     
-    ██║  ██║██║╚██╗ ██╔╝  ╚██╔╝  ██╔══██║    ██║╚██╗██║██╔══██║██║   ██║   ██║   ██║  ╚██╔╝  ██╔══██║██║     
-    ██████╔╝██║ ╚████╔╝    ██║   ██║  ██║    ██║ ╚████║██║  ██║╚██████╔╝   ██║   ██║   ██║   ██║  ██║███████╗
-    ╚═════╝ ╚═╝  ╚═══╝     ╚═╝   ╚═╝  ╚═╝    ╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝
-            
-            ╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
-            ║                                  DIVYA NAUTIYAL                                                  ║
-            ║                           AUTONOMOUS AGENT ARCHITECT                                            ║
-            ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝
-            </div>
-            
-            <div class="prompt">
-                <span>DIVYA NAUTIYAL | AUTONOMOUS AGENT ARCHITECT | PYTHON ENGINEER @ VALORY</span>
-            </div>
-            
-            <div class="agent-info">
-                <div class="info-panel">
-                    <h3>AGENT SPECIFICATIONS</h3>
-                    <p>► DESIGNATION: D1VY4_NAUTIYAL</p>
-                    <p>► CONTACT_PROTOCOL: divyanautiyal07@gmail.com</p>
-                    <p>► LOCATION_NODE: Delhi, India</p>
-                    <p>► GITHUB_REPO: github.com/divyanautiyal</p>
-                    <p>► NETWORK_ID: linkedin.com/in/divyanautiyal</p>
-                </div>
-                
-                <div class="info-panel">
-                    <h3>CURRENT_MISSION</h3>
-                    <p>◊ Autonomous AI agents</p>
-                    <p>◊ Cross-chain intelligence systems @ Valory</p>
-                    <p>◊ Multi-DEX arbitrage automation</p>
-                    <p>◊ Self-optimizing yield strategies</p>
-                    <p>◊ Decentralized agent orchestration</p>
+                <div class="project-links">
+                    <a href="https://github.com/valory-xyz/optimus" class="project-link" target="_blank">
+                        🔗 Source Code
+                    </a>
+                    <a href="https://olas.network/agents/babydegen#optimus-agent" class="project-link demo" target="_blank">
+                        🚀 Live Agent
+                    </a>
                 </div>
             </div>
-            
-            <div class="connection-status">
-                <div class="connection-animation">
-                    <span>🤖 OPTIMUS AGENT DEPLOYED & EXECUTING LIVE STRATEGIES</span>
-                    <div class="connection-dot"></div>
-                    <div class="connection-dot"></div>
-                    <div class="connection-dot"></div>
-                    <div class="connection-dot"></div>
-                    <div class="connection-dot"></div>
-                </div>
-            </div>
-            
-            <div class="prompt">
-                <span>./deploy_optimus_agent.sh --mode=production --chains=optimism,mode</span>
-            </div>
-            
-            <div class="capability-grid">
-                <div class="capability-card" style="border: 3px solid #ff6b6b; background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(0, 255, 65, 0.2)); order: -1;">
-                    <div class="capability-header">
-                        <div class="status-indicator" style="background: #ff6b6b; animation: pulse 1s infinite;"></div>
-                        <h3 style="color: #ff6b6b; font-size: 1.3em;">⚡ OPTIMUS_AGENT [LIVE_PRODUCTION] ⚡</h3>
-                    </div>
-                    <div style="background: rgba(255, 107, 107, 0.1); padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #ff6b6b;">
-                        <strong style="color: #ff6b6b;">🚀 FLAGSHIP AUTONOMOUS AGENT @ OLAS</strong><br>
-                        Advanced multi-chain DeFi intelligence system with real-time market analysis, liquidity provision, and autonomous yield optimization. Features adaptive learning algorithms and risk management protocols.
-                    </div>
-                    <p><strong>CORE_CAPABILITIES:</strong></p>
-                    <p>◊ Real-time liquidity analysis across Optimism & Mode networks</p>
-                    <p>◊ Autonomous arbitrage execution with 0.3s response time</p>
-                    <p>◊ Multi-DEX yield farming optimization (Velodrome, Uniswap, Balancer, Sturdy)</p>
-                    <p>◊ Self-learning risk assessment and position management</p>
-                    <p>◊ Cross-chain bridge monitoring and execution</p>
-                    <div class="tech-matrix">
-                        <span class="tech-chip" style="background: rgba(255, 107, 107, 0.3); color: #ff6b6b;">OPEN_AUTONOMY</span>
-                        <span class="tech-chip" style="background: rgba(255, 107, 107, 0.3); color: #ff6b6b;">PYTHON</span>
-                        <span class="tech-chip" style="background: rgba(255, 107, 107, 0.3); color: #ff6b6b;">VELODROME_CONCENTRARED_LIQUIDITY</span>
-                        <span class="tech-chip" style="background: rgba(255, 107, 107, 0.3); color: #ff6b6b;">UNISWAP_V3</span>
-                        <span class="tech-chip" style="background: rgba(255, 107, 107, 0.3); color: #ff6b6b;">STURDY_PROTOCOL</span>
-                        <span class="tech-chip" style="background: rgba(255, 107, 107, 0.3); color: #ff6b6b;">BALANCER_V2</span>
-                        <span class="tech-chip" style="background: rgba(255, 107, 107, 0.3); color: #ff6b6b;">CROSS_CHAIN_AGENT</span>
-                    </div>
-                    <div class="neural-links">
-                        <a href="https://github.com/valory-xyz/optimus" class="neural-link" target="_blank" style="background: linear-gradient(45deg, #ff6b6b, #ff9999);">🔗 SOURCE_CODE</a>
-                        <a href="https://olas.network/agents/babydegen#optimus-agent" class="neural-link" target="_blank" style="background: linear-gradient(45deg, #00ff41, #66ff66);">🚀 LIVE_AGENT</a>
+        </section>
+        
+        <!-- Other Projects -->
+        <section class="section">
+            <h2 class="section-title">Other Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>📋 Invoice Parser using GPT4-Vision</h3>
+                    <p>Developed an automated invoice parsing system using GPT-4 Vision for data extraction. Integrated LangChain and Azure Search for efficient processing and retrieval of invoice data. Built a workorder chatbot using RAG architecture for real-time query handling.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">LangChain</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Azure Search</span>
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">RAG Architecture</span>
                     </div>
                 </div>
                 
-                <div class="capability-card">
-                    <div class="capability-header">
-                        <div class="status-indicator"></div>
-                        <h3>🏠 TOKENIZATION_PROTOCOL</h3>
-                    </div>
-                    <p>BLOCKCHAIN REAL_ESTATE SYSTEM: Autonomous tokenization platform with embedded DAO governance. Features fractional ownership, smart contract automation, and decentralized property management.</p>
-                    <div class="tech-matrix">
-                        <span class="tech-chip">SOLIDITY_v0.8</span>
-                        <span class="tech-chip">POLYGON_NETWORK</span>
-                        <span class="tech-chip">WEB3_STACK</span>
-                        <span class="tech-chip">DAO_GOVERNANCE</span>
-                        <span class="tech-chip">ERC20_STANDARD</span>
-                    </div>
-                </div>
-                
-                <div class="capability-card">
-                    <div class="capability-header">
-                        <div class="status-indicator"></div>
-                        <h3>🧠 COGNITIVE_PARSER_AGENT</h3>
-                    </div>
-                    <p>GPT4_VISION_INTELLIGENCE: Multi-modal document processing agent with zero-shot learning. Transforms manual invoice processing into autonomous cognitive workflows with 99.7% accuracy.</p>
-                    <div class="tech-matrix">
-                        <span class="tech-chip">GPT4_VISION</span>
-                        <span class="tech-chip">LANGCHAIN_CORE</span>
-                        <span class="tech-chip">RAG_ARCHITECTURE</span>
-                        <span class="tech-chip">AZURE_COGNITIVE</span>
-                        <span class="tech-chip">NEURAL_OCR</span>
+                <div class="project-card">
+                    <h3>🛒 ECommerce Website Development via VirtoCommerce</h3>
+                    <p>Extended and customized Virto Commerce modules to meet specific vendor requirements for GIIFT project.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">.NET MVC</span>
+                        <span class="tech-tag">SQL Server</span>
+                        <span class="tech-tag">Swagger</span>
+                        <span class="tech-tag">REST API</span>
+                        <span class="tech-tag">ElasticSearch</span>
+                        <span class="tech-tag">Virto Commerce</span>
                     </div>
                 </div>
                 
-                <div class="capability-card">
-                    <div class="capability-header">
-                        <div class="status-indicator"></div>
-                        <h3>📋 PREDICTIVE_ANALYTICS_ENGINE</h3>
-                    </div>
-                    <p>WORK_ORDER_AI_SYSTEM: Transforms reactive business processes into predictive autonomous networks. Features trend forecasting, anomaly detection, and self-optimizing performance metrics.</p>
-                    <div class="tech-matrix">
-                        <span class="tech-chip">ML_ALGORITHMS</span>
-                        <span class="tech-chip">PREDICTIVE_MODELS</span>
-                        <span class="tech-chip">AGENT_ARCHITECTURE</span>
-                        <span class="tech-chip">AZURE_ML</span>
-                        <span class="tech-chip">PATTERN_RECOGNITION</span>
+                <div class="project-card">
+                    <h3>📊 Intelligent Data Extraction and Summarization using LLM</h3>
+                    <p>Built a tool for extracting critical information from unstructured data sources. Developed custom LLM prompts and integrated OpenAI ChatGPT APIs for advanced language processing.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">LangChain</span>
+                        <span class="tech-tag">OpenAI ChatGPT API</span>
+                        <span class="tech-tag">OCR</span>
                     </div>
                 </div>
                 
-                <div class="capability-card">
-                    <div class="capability-header">
-                        <div class="status-indicator"></div>
-                        <h3>🛒 ADAPTIVE_COMMERCE_FRAMEWORK</h3>
-                    </div>
-                    <p>VIRTO_ENHANCED_SYSTEM: Self-modifying e-commerce agent with dynamic vendor adaptation. Features autonomous business logic optimization and intelligent integration management.</p>
-                    <div class="tech-matrix">
-                        <span class="tech-chip">DOTNET_CORE</span>
-                        <span class="tech-chip">VIRTOCOMMERCE</span>
-                        <span class="tech-chip">API_ORCHESTRATION</span>
-                        <span class="tech-chip">ELASTICSEARCH</span>
+                <div class="project-card">
+                    <h3>🏠 RealEstate Blockchain Platform</h3>
+                    <p>Developed a blockchain-based platform for real estate tokenization and transaction management. Implemented DAO for project governance and ERC20 tokens for property ownership.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Solidity</span>
+                        <span class="tech-tag">Polygon</span>
+                        <span class="tech-tag">Web3</span>
+                        <span class="tech-tag">Ether.js</span>
+                        <span class="tech-tag">Wallet Integration</span>
+                        <span class="tech-tag">Node.js</span>
                     </div>
                 </div>
                 
-            </div>
-            
-            <div class="prompt">
-                <span>./display_neural_architecture.sh</span>
-            </div>
-            
-            <div class="system-status">
-                <h3 style="color: #ff6b6b; margin-bottom: 15px;">NEURAL ARCHITECTURE SPECIFICATIONS</h3>
-                <div class="agent-info">
-                    <div class="info-panel">
-                        <h3>🤖 AGENT_FRAMEWORKS</h3>
-                        <p>◊ Open Autonomy Core</p>
-                        <p>◊ LangChain Neural Networks</p>
-                        <p>◊ Multi-Agent Orchestration</p>
-                        <p>◊ Autonomous Decision Trees</p>
-                        <p>◊ Self-Learning Algorithms</p>
-                    </div>
-                    
-                    <div class="info-panel">
-                        <h3>🔗 WEB3_PROTOCOLS</h3>
-                        <p>◊ Solidity Smart Contracts</p>
-                        <p>◊ Cross-Chain Intelligence</p>
-                        <p>◊ DeFi Protocol Integration</p>
-                        <p>◊ IPFS Distributed Storage</p>
-                        <p>◊ Blockchain Automation</p>
-                    </div>
-                    
-                    <div class="info-panel">
-                        <h3>🧠 COGNITIVE_COMPUTING</h3>
-                        <p>◊ GPT-4 Vision Processing</p>
-                        <p>◊ Multi-Modal AI Systems</p>
-                        <p>◊ RAG Architecture</p>
-                        <p>◊ Neural Pattern Recognition</p>
-                        <p>◊ Adaptive Learning Networks</p>
-                    </div>
-                    
-                    <div class="info-panel">
-                        <h3>⚡ RUNTIME_ENVIRONMENT</h3>
-                        <p>◊ Python Core Engine</p>
-                        <p>◊ Node.js Event Loops</p>
-                        <p>◊ Azure Cognitive Services</p>
+                <div class="project-card">
+                    <h3>🖼️ NFT Marketplace</h3>
+                    <p>Created a decentralized NFT marketplace on Ethereum with advanced features like Lazy Minting. Implemented ERC1155 standard and integrated IPFS for decentralized storage.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Solidity</span>
+                        <span class="tech-tag">Ethereum</span>
+                        <span class="tech-tag">Web3</span>
+                        <span class="tech-tag">Ether.js</span>
+                        <span class="tech-tag">Hardhat</span>
+                        <span class="tech-tag">Truffle</span>
+                        <span class="tech-tag">IPFS</span>
                     </div>
                 </div>
             </div>
-            
-            <div class="quantum-footer">
-                <div class="shutdown-prompt">
-                    ⚡ AGENT_D1VY4 READY FOR COLLABORATION PROTOCOLS ⚡
+        </section>
+        
+        <!-- Skills -->
+        <section class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>🤖 AI Agent Frameworks</h3>
+                    <div class="skill-list">
+                        Open Autonomy • LangChain • Multi-Agent Systems<br>
+                        GPT-4 Vision • RAG Architecture<br>
+                        Autonomous Decision Making
+                    </div>
                 </div>
-                <p style="margin-bottom: 20px;">LEAD ARCHITECT OF OPTIMUS AGENT @ VALORY // AUTONOMOUS DEFI SYSTEMS // SEEKING ADVANCED AGENT COLLABORATIONS</p>
-                <div class="connection-animation" style="margin-bottom: 20px;">
-                    <span>STANDING BY FOR INITIALIZATION COMMAND</span>
-                    <div class="connection-dot"></div>
-                    <div class="connection-dot"></div>
-                    <div class="connection-dot"></div>
+                
+                <div class="skill-category">
+                    <h3>🔗 Blockchain & Web3</h3>
+                    <div class="skill-list">
+                        Solidity • Web3.js • Ether.js • IPFS<br>
+                        Chainlink • Hardhat • Truffle • Infura<br>
+                        DeFi Protocols • Cross-Chain Solutions
+                    </div>
                 </div>
-                <a href="mailto:divyanautiyal07@gmail.com" class="initiate-btn">INITIATE_CONTACT_PROTOCOL</a>
+                
+                <div class="skill-category">
+                    <h3>💻 Programming</h3>
+                    <div class="skill-list">
+                        Python • JavaScript • Node.js<br>
+                        C# • ASP.NET Core<br>
+                        Git • REST APIs
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>🧠 AI/ML Technologies</h3>
+                    <div class="skill-list">
+                        OpenAI ChatGPT • OCR<br>
+                        Image Processing • Azure Search<br>
+                        ElasticSearch • SQL
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2 class="cta-title">Let's Build Intelligent Agents Together</h2>
+            <p class="cta-text">
+                Currently at Valory as a Python Engineer, building autonomous agents and cross-chain DeFi solutions.<br>
+                Open to collaborations, hackathons, and innovative AI agent projects.
+            </p>
+            <a href="mailto:divyanautiyal07@gmail.com" class="cta-button">Get In Touch</a>
+        </section>
     </div>
 
     <script>
-        // Matrix rain effect
-        function createMatrixRain() {
-            const container = document.getElementById('matrixRain');
-            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
             
-            for (let i = 0; i < 50; i++) {
-                const column = document.createElement('div');
-                column.className = 'matrix-column';
-                column.style.left = Math.random() * 100 + '%';
-                column.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                column.style.animationDelay = Math.random() * 2 + 's';
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
                 
-                let text = '';
-                for (let j = 0; j < 20; j++) {
-                    text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                // Random colors for Web3 theme
+                const colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = `linear-gradient(45deg, ${color}, ${color}80)`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Create neural network nodes and connections
+        function createNeuralNetwork() {
+            const neuralContainer = document.getElementById('neuralBg');
+            const nodeCount = 8;
+            const nodes = [];
+            
+            // Create nodes
+            for (let i = 0; i < nodeCount; i++) {
+                const node = document.createElement('div');
+                node.className = 'neural-node';
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                node.style.left = x + '%';
+                node.style.top = y + '%';
+                node.style.animationDelay = Math.random() * 3 + 's';
+                neuralContainer.appendChild(node);
+                nodes.push({ element: node, x, y });
+            }
+            
+            // Create connections between nearby nodes
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const distance = Math.sqrt(
+                        Math.pow(nodes[i].x - nodes[j].x, 2) + 
+                        Math.pow(nodes[i].y - nodes[j].y, 2)
+                    );
+                    
+                    if (distance < 40) { // Only connect nearby nodes
+                        const connection = document.createElement('div');
+                        connection.className = 'neural-connection';
+                        
+                        const angle = Math.atan2(nodes[j].y - nodes[i].y, nodes[j].x - nodes[i].x);
+                        const length = distance;
+                        
+                        connection.style.left = nodes[i].x + '%';
+                        connection.style.top = nodes[i].y + '%';
+                        connection.style.width = length + 'vw';
+                        connection.style.transform = `rotate(${angle}rad)`;
+                        connection.style.transformOrigin = '0 0';
+                        connection.style.animationDelay = Math.random() * 4 + 's';
+                        
+                        neuralContainer.appendChild(connection);
+                    }
                 }
-                column.innerHTML = text;
-                
-                container.appendChild(column);
             }
         }
         
         // Initialize effects
-        createMatrixRain();
-        
-        // Random glitch effect
-        setInterval(() => {
-            const elements = document.querySelectorAll('.capability-card, .info-panel');
-            const randomElement = elements[Math.floor(Math.random() * elements.length)];
-            randomElement.style.filter = 'hue-rotate(' + Math.random() * 360 + 'deg)';
-            setTimeout(() => {
-                randomElement.style.filter = 'none';
-            }, 200);
-        }, 3000);
+        createParticles();
+        createNeuralNetwork();
     </script>
 </body>
 </html>
