@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Divya Nautiyal - AI Agent Developer</title>
+    <title>Divya Nautiyal - Code in the Stars</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,101 +14,130 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             line-height: 1.6;
-            color: #e5e7eb;
-            background: radial-gradient(ellipse at top, #1e1b4b 0%, #312e81 25%, #1f2937 50%, #111827 100%);
+            color: #e2e8f0;
+            background: #0a0a0f;
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
+            position: relative;
         }
         
-        /* Animated background grid */
-        body::before {
-            content: '';
+        /* Cosmic background with moving stars */
+        .cosmos {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-            pointer-events: none;
-            z-index: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -2;
         }
         
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-        
-        /* Neural network connections */
-        .neural-bg {
+        .stars {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
-            opacity: 0.4;
+            z-index: -1;
         }
         
-        .neural-node {
+        .star {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #6366f1;
+            background: white;
             border-radius: 50%;
-            box-shadow: 0 0 10px #6366f1;
-            animation: nodePulse 3s ease-in-out infinite;
+            animation: twinkle ease-in-out infinite alternate;
         }
         
-        .neural-connection {
-            position: absolute;
+        .star.small {
+            width: 1px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #6366f1, transparent);
-            animation: connectionFlow 4s ease-in-out infinite;
+            animation-duration: 2s;
         }
         
-        @keyframes nodePulse {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
+        .star.medium {
+            width: 2px;
+            height: 2px;
+            animation-duration: 3s;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
         }
         
-        @keyframes connectionFlow {
-            0% { opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { opacity: 0; }
-        }
-        
-        /* Floating particles background */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .particle {
-            position: absolute;
+        .star.large {
             width: 3px;
             height: 3px;
-            background: linear-gradient(45deg, #60a5fa, #a78bfa);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-            opacity: 0.7;
+            animation-duration: 4s;
+            box-shadow: 0 0 12px rgba(147, 197, 253, 0.9);
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
-            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        /* Shooting stars */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(45deg, #fff, #93c5fd);
+            border-radius: 50%;
+            animation: shoot 3s linear infinite;
+        }
+        
+        @keyframes shoot {
+            0% {
+                transform: translateX(-100px) translateY(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh);
+                opacity: 0;
+            }
+        }
+        
+        /* Floating code fragments */
+        .code-fragments {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .code-fragment {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: rgba(147, 197, 253, 0.3);
+            animation: float-code 20s linear infinite;
+        }
+        
+        @keyframes float-code {
+            0% {
+                transform: translateY(100vh) translateX(-50px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0;
+            }
         }
         
         .container {
@@ -117,59 +148,71 @@
             z-index: 1;
         }
         
-        /* Header */
+        /* Elegant header */
         .header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 4rem 0 2rem 0;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            margin: 20px 0;
-            border: 1px solid rgba(99, 102, 241, 0.2);
             position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            animation: rotate 10s linear infinite;
-            z-index: -1;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
         
         .name-title {
-            font-size: 3.5rem;
+            font-size: 5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #06b6d4 50%, #10b981 75%, #6366f1 100%);
-            background-size: 300% 300%;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #93c5fd 0%, #ddd6fe 50%, #fbbf24 100%);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            animation: gradientFlow 4s ease infinite;
-            text-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+            position: relative;
+            animation: gentle-glow 4s ease-in-out infinite alternate;
         }
         
-        @keyframes gradientFlow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        @keyframes gentle-glow {
+            0% {
+                filter: drop-shadow(0 0 20px rgba(147, 197, 253, 0.3));
+            }
+            100% {
+                filter: drop-shadow(0 0 40px rgba(147, 197, 253, 0.6));
+            }
         }
         
         .subtitle {
-            font-size: 1.3rem;
-            color: #94a3b8;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            color: #93c5fd;
+            margin-bottom: 3rem;
             font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .elegant-intro {
+            max-width: 700px;
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(147, 197, 253, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            line-height: 1.8;
+        }
+        
+        .elegant-intro::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, rgba(147, 197, 253, 0.1), rgba(221, 214, 254, 0.1), rgba(251, 191, 36, 0.1));
+            border-radius: 16px;
+            z-index: -1;
         }
         
         .contact-grid {
@@ -177,205 +220,143 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 1.5rem;
-            margin-top: 2rem;
+            margin: 3rem 0;
         }
         
         .contact-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: #cbd5e1;
+            color: #e2e8f0;
             text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            background: rgba(96, 165, 250, 0.1);
-            border: 1px solid rgba(96, 165, 250, 0.3);
+            padding: 1rem 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(147, 197, 253, 0.3);
             border-radius: 12px;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            font-weight: 500;
         }
         
         .contact-item:hover {
-            background: rgba(96, 165, 250, 0.2);
-            border-color: #60a5fa;
+            background: rgba(147, 197, 253, 0.1);
+            border-color: #93c5fd;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(96, 165, 250, 0.2);
+            box-shadow: 0 8px 25px rgba(147, 197, 253, 0.2);
         }
         
-        /* Status indicator */
-        .status-bar {
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .status-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            animation: scanLine 3s ease-in-out infinite;
-        }
-        
-        @keyframes scanLine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        .status-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0.5rem 0;
-            font-size: 0.95rem;
-        }
-        
-        .status-label {
-            color: #94a3b8;
-        }
-        
-        .status-value {
-            color: #10b981;
-            font-weight: 600;
-        }
-        
-        .status-warning {
-            color: #f59e0b;
-        }
-        
-        /* Section styling */
+        /* Elegant sections */
         .section {
-            margin: 4rem 0;
+            margin: 6rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .section.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .section-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             text-align: center;
             margin-bottom: 3rem;
-            color: #60a5fa;
+            color: #93c5fd;
+            font-weight: 600;
             position: relative;
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, #60a5fa, #a78bfa);
-            border-radius: 2px;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #93c5fd, transparent);
         }
         
-        /* Featured project */
+        /* Featured project with elegant design */
         .featured-project {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(15px);
-            border: 2px solid transparent;
+            border: 1px solid rgba(147, 197, 253, 0.2);
             border-radius: 20px;
             padding: 3rem;
-            margin-bottom: 4rem;
+            margin: 3rem 0;
             position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .featured-project::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4, #10b981, #6366f1);
-            background-size: 400% 400%;
-            border-radius: 20px;
-            z-index: -1;
-            animation: borderGlow 4s ease infinite;
-        }
-        
-        .featured-project::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 18px;
-            z-index: -1;
-        }
-        
-        @keyframes borderGlow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            background: linear-gradient(135deg, rgba(147, 197, 253, 0.05), rgba(221, 214, 254, 0.05));
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
         
         .featured-project:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(96, 165, 250, 0.2);
+            transform: translateY(-8px);
+            border-color: rgba(147, 197, 253, 0.4);
+            box-shadow: 0 20px 60px rgba(147, 197, 253, 0.1);
         }
         
-        .project-header {
-            display: flex;
+        .featured-project:hover::before {
+            opacity: 1;
+        }
+        
+        .project-badge {
+            display: inline-flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #93c5fd, #ddd6fe);
+            color: #1e293b;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(147, 197, 253, 0.2);
         }
         
         .project-title {
             font-size: 2rem;
-            color: #60a5fa;
-            margin: 0;
-        }
-        
-        .status-badge {
-            background: linear-gradient(45deg, #10b981, #06d6a0);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
             font-weight: 600;
-            text-transform: uppercase;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
         }
         
         .project-description {
             font-size: 1.1rem;
-            margin-bottom: 2rem;
             color: #cbd5e1;
+            margin-bottom: 2rem;
             line-height: 1.7;
         }
         
-        /* Project grid */
+        /* Elegant project grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
+            margin: 3rem 0;
         }
         
         .project-card {
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 15px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
             padding: 2rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
@@ -387,56 +368,34 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            transition: left 0.6s;
-        }
-        
-        .project-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 15px;
-            padding: 1px;
-            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.3), transparent);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.1), transparent);
+            transition: left 0.6s ease;
         }
         
         .project-card:hover::before {
             left: 100%;
         }
         
-        .project-card:hover::after {
-            opacity: 1;
-        }
-        
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-5px);
+            border-color: rgba(147, 197, 253, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
         
         .project-card h3 {
-            color: #60a5fa;
-            margin-bottom: 1rem;
             font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            color: #93c5fd;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
         
         .project-card p {
             color: #cbd5e1;
-            margin-bottom: 1.5rem;
             line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
         
-        /* Tech tags */
+        /* Clean tech tags */
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
@@ -445,39 +404,24 @@
         }
         
         .tech-tag {
-            background: rgba(99, 102, 241, 0.1);
-            color: #6366f1;
+            background: rgba(147, 197, 253, 0.1);
+            color: #93c5fd;
             padding: 0.3rem 0.8rem;
-            border-radius: 12px;
+            border-radius: 8px;
             font-size: 0.85rem;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(147, 197, 253, 0.2);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .tech-tag::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.3s ease;
-        }
-        
-        .tech-tag:hover::before {
-            left: 100%;
         }
         
         .tech-tag:hover {
-            background: rgba(99, 102, 241, 0.2);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+            background: rgba(147, 197, 253, 0.2);
+            border-color: #93c5fd;
+            transform: translateY(-2px);
         }
         
-        /* Project links */
+        /* Clean project links */
         .project-links {
             display: flex;
             gap: 1rem;
@@ -486,46 +430,36 @@
         }
         
         .project-link {
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(147, 197, 253, 0.1);
+            color: #93c5fd;
             padding: 0.8rem 1.5rem;
             border-radius: 12px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .project-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.3s ease;
-        }
-        
-        .project-link:hover::before {
-            left: 100%;
+            border: 1px solid rgba(147, 197, 253, 0.3);
         }
         
         .project-link:hover {
+            background: #93c5fd;
+            color: #1e293b;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 8px 25px rgba(147, 197, 253, 0.3);
         }
         
         .project-link.demo {
-            background: linear-gradient(45deg, #10b981, #06d6a0);
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.3);
         }
         
         .project-link.demo:hover {
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            background: #fbbf24;
+            color: #1e293b;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
         }
         
         /* Skills grid */
@@ -533,33 +467,30 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
+            margin: 3rem 0;
         }
         
         .skill-category {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
             padding: 2rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
         
         .skill-category:hover {
-            border-color: rgba(96, 165, 250, 0.5);
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(96, 165, 250, 0.1);
+            border-color: rgba(147, 197, 253, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
         
         .skill-category h3 {
-            color: #60a5fa;
-            margin-bottom: 1.5rem;
             font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            color: #93c5fd;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
         
         .skill-list {
@@ -567,57 +498,59 @@
             line-height: 1.8;
         }
         
-        /* Call to action */
+        /* Elegant CTA */
         .cta-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(15px);
+            border: 1px solid rgba(147, 197, 253, 0.2);
             border-radius: 20px;
+            padding: 4rem;
             margin: 4rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
         }
         
         .cta-title {
             font-size: 2.2rem;
-            color: #60a5fa;
-            margin-bottom: 1rem;
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
         
         .cta-text {
             font-size: 1.1rem;
             color: #cbd5e1;
-            margin-bottom: 2rem;
-            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #60a5fa, #a78bfa);
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #93c5fd, #ddd6fe);
+            color: #1e293b;
             padding: 1.2rem 2.5rem;
-            border-radius: 15px;
+            border-radius: 16px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(96, 165, 250, 0.2);
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(147, 197, 253, 0.2);
         }
         
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(96, 165, 250, 0.3);
+            box-shadow: 0 15px 40px rgba(147, 197, 253, 0.3);
         }
         
         /* Responsive design */
         @media (max-width: 768px) {
             .name-title {
-                font-size: 2.5rem;
-            }
-            
-            .contact-grid {
-                flex-direction: column;
-                align-items: center;
+                font-size: 3rem;
             }
             
             .projects-grid {
@@ -628,114 +561,82 @@
                 padding: 2rem;
             }
             
-            .project-header {
+            .contact-grid {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
             }
         }
         
-        /* Highlight effects */
+        /* Highlight styling */
         .highlight {
-            color: #f472b6;
+            background: linear-gradient(135deg, #93c5fd, #ddd6fe);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: 600;
         }
         
-        .glow {
-            text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
-        }
-        
-        /* Loading animation */
-        .loading-dots {
-            display: inline-flex;
-            gap: 4px;
-            margin-left: 10px;
-        }
-        
-        .loading-dot {
+        /* Cursor trail effect */
+        .cursor-trail {
+            position: fixed;
             width: 6px;
             height: 6px;
-            background: #60a5fa;
+            background: radial-gradient(circle, #93c5fd, transparent);
             border-radius: 50%;
-            animation: loadingBounce 1.4s ease-in-out infinite both;
-        }
-        
-        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
-        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
-        
-        @keyframes loadingBounce {
-            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-            40% { transform: scale(1.2); opacity: 1; }
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <!-- Floating particles -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Neural network background -->
-    <div class="neural-bg" id="neuralBg"></div>
+    <!-- Cosmic background -->
+    <div class="cosmos"></div>
+    <div class="stars" id="stars"></div>
+    <div class="code-fragments" id="codeFragments"></div>
     
     <div class="container">
-        <!-- Header -->
+        <!-- Elegant Header -->
         <header class="header">
-            <h1 class="name-title glow">Divya Nautiyal</h1>
-            <p class="subtitle">Python Blockchain Developer & AI Engineer</p>
+            <h1 class="name-title">Divya Nautiyal</h1>
+            <p class="subtitle">Python Engineer & Blockchain Architect</p>
+            
+            <div class="elegant-intro">
+                Hello! I'm a passionate Python engineer currently at Valory, where I craft autonomous agents and explore the fascinating intersection of AI and blockchain technology. My journey spans from building intelligent systems that parse documents to creating decentralized applications that operate across multiple networks. I believe in writing clean, elegant code that solves real-world problems while pushing the boundaries of what's possible with emerging technologies.
+            </div>
             
             <div class="contact-grid">
                 <a href="mailto:divyanautiyal07@gmail.com" class="contact-item">
-                    📧 divyanautiyal07@gmail.com
+                    ✉️ Email
                 </a>
                 <a href="https://github.com/divyanautiyal" class="contact-item" target="_blank">
-                    🔗 GitHub
+                    💻 GitHub
                 </a>
                 <a href="https://linkedin.com/in/divyanautiyal" class="contact-item" target="_blank">
-                    💼 LinkedIn
+                    🔗 LinkedIn
                 </a>
-                <span class="contact-item">📍 Delhi, India</span>
+                <span class="contact-item">📍 Jabalpur, MP</span>
             </div>
         </header>
         
-        <!-- Status Bar -->
-        <div class="status-bar">
-            <div class="status-item">
-                <span class="status-label">🤖 Current Role:</span>
-                <span class="status-value">Python Engineer @ Valory</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">⚡ Focus Area:</span>
-                <span class="status-value">Autonomous Agent Development</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">🔗 Specialization:</span>
-                <span class="status-value">DeFi Systems</span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">🚀 Status:</span>
-                <span class="status-warning">Building Next-Gen Agents
-                    <div class="loading-dots">
-                        <div class="loading-dot"></div>
-                        <div class="loading-dot"></div>
-                        <div class="loading-dot"></div>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
         <!-- Featured Project -->
         <section class="section">
-            <h2 class="section-title">Featured Project</h2>
+            <h2 class="section-title">Featured Work</h2>
             <div class="featured-project">
-                <div class="project-header">
-                    <h3 class="project-title">🤖 Optimus - Cross-Chain DeFi Agent</h3>
-                    <span class="status-badge">Live Agent</span>
+                <div class="project-badge">
+                    ⭐ Current Project
                 </div>
+                <h3 class="project-title">Optimus - Cross-Chain DeFi Agent</h3>
                 <p class="project-description">
-                    <strong>Cross-chain DeFi agent built with Open Autonomy Framework:</strong> Autonomous agent for participating in DeFi activities across <span class="highlight">Optimism</span> and <span class="highlight">Mode</span> networks 
-                    with multi-Dex integration including Velodrome, Uniswap, Balancer, and Sturdy.
+                    Currently building at Valory (January 2025 - Present), Optimus is a sophisticated autonomous agent powered by the Open Autonomy Framework. 
+                    This intelligent system navigates <span class="highlight">Optimism</span> and <span class="highlight">Mode</span> networks, 
+                    executing complex DeFi strategies across multiple exchanges including Velodrome, Uniswap, Balancer, and Sturdy.
                 </p>
                 <p class="project-description">
-                    Features intelligent decision-making for liquidity provision and utilizes <span class="highlight">Python</span> with the 
-                    <span class="highlight">Open Autonomy framework</span> for building truly autonomous agents.
+                    The agent demonstrates advanced decision-making capabilities for liquidity provision and portfolio optimization, 
+                    built with <span class="highlight">Python</span> and leveraging the powerful <span class="highlight">Open Autonomy framework</span> 
+                    for truly autonomous operation.
                 </p>
                 <div class="tech-stack">
                     <span class="tech-tag">Open Autonomy</span>
@@ -748,10 +649,10 @@
                 </div>
                 <div class="project-links">
                     <a href="https://github.com/valory-xyz/optimus" class="project-link" target="_blank">
-                        🔗 Source Code
+                        📖 View Source
                     </a>
                     <a href="https://olas.network/agents/babydegen#optimus-agent" class="project-link demo" target="_blank">
-                        🚀 Live Agent
+                        🚀 Live Demo
                     </a>
                 </div>
             </div>
@@ -762,8 +663,8 @@
             <h2 class="section-title">Other Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <h3>📋 Invoice Parser using GPT4-Vision</h3>
-                    <p>Developed an automated invoice parsing system using GPT-4 Vision for data extraction. Integrated LangChain and Azure Search for efficient processing and retrieval of invoice data. Built a workorder chatbot using RAG architecture for real-time query handling.</p>
+                    <h3>🤖 Invoice Parser with GPT-4 Vision</h3>
+                    <p>Developed an automated invoice processing system using GPT-4 Vision for data extraction. Integrated LangChain and Azure Search for efficient processing and retrieval of invoice data. Built a workorder chatbot using RAG architecture for real-time query handling.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">LangChain</span>
                         <span class="tech-tag">Python</span>
@@ -774,8 +675,8 @@
                 </div>
                 
                 <div class="project-card">
-                    <h3>🛒 ECommerce Website Development via VirtoCommerce</h3>
-                    <p>Extended and customized Virto Commerce modules to meet specific vendor requirements for GIIFT project.</p>
+                    <h3>🛒 VirtoCommerce E-Commerce Platform</h3>
+                    <p>Extended and customized Virto Commerce modules to meet specific vendor requirements for the GIIFT project. Implemented custom business logic and integrated various third-party services.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">C#</span>
                         <span class="tech-tag">.NET MVC</span>
@@ -788,8 +689,8 @@
                 </div>
                 
                 <div class="project-card">
-                    <h3>📊 Intelligent Data Extraction and Summarization using LLM</h3>
-                    <p>Built a tool for extracting critical information from unstructured data sources. Developed custom LLM prompts and integrated OpenAI ChatGPT APIs for advanced language processing.</p>
+                    <h3>🧠 Intelligent Data Extraction Tool</h3>
+                    <p>Built a comprehensive tool for extracting critical information from unstructured data sources. Developed custom LLM prompts and integrated OpenAI ChatGPT APIs for advanced language processing.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">LangChain</span>
@@ -799,7 +700,7 @@
                 </div>
                 
                 <div class="project-card">
-                    <h3>🏠 RealEstate Blockchain Platform</h3>
+                    <h3>🏠 Real Estate Blockchain Platform</h3>
                     <p>Developed a blockchain-based platform for real estate tokenization and transaction management. Implemented DAO for project governance and ERC20 tokens for property ownership.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Solidity</span>
@@ -812,7 +713,7 @@
                 </div>
                 
                 <div class="project-card">
-                    <h3>🖼️ NFT Marketplace</h3>
+                    <h3>🎨 NFT Marketplace</h3>
                     <p>Created a decentralized NFT marketplace on Ethereum with advanced features like Lazy Minting. Implemented ERC1155 standard and integrated IPFS for decentralized storage.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Solidity</span>
@@ -832,7 +733,7 @@
             <h2 class="section-title">Technical Skills</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3>🤖 AI Agent Frameworks</h3>
+                    <h3>🤖 AI & Agent Development</h3>
                     <div class="skill-list">
                         Open Autonomy • LangChain • Multi-Agent Systems<br>
                         GPT-4 Vision • RAG Architecture<br>
@@ -841,7 +742,7 @@
                 </div>
                 
                 <div class="skill-category">
-                    <h3>🔗 Blockchain & Web3</h3>
+                    <h3>⛓️ Blockchain & Web3</h3>
                     <div class="skill-list">
                         Solidity • Web3.js • Ether.js • IPFS<br>
                         Chainlink • Hardhat • Truffle • Infura<br>
@@ -850,7 +751,7 @@
                 </div>
                 
                 <div class="skill-category">
-                    <h3>💻 Programming</h3>
+                    <h3>💻 Programming Languages</h3>
                     <div class="skill-list">
                         Python • JavaScript • Node.js<br>
                         C# • ASP.NET Core<br>
@@ -859,7 +760,7 @@
                 </div>
                 
                 <div class="skill-category">
-                    <h3>🧠 AI/ML Technologies</h3>
+                    <h3>🧠 AI Technologies</h3>
                     <div class="skill-list">
                         OpenAI ChatGPT • OCR<br>
                         Image Processing • Azure Search<br>
@@ -871,88 +772,315 @@
         
         <!-- Call to Action -->
         <section class="cta-section">
-            <h2 class="cta-title">Let's Build Intelligent Agents Together</h2>
+            <h2 class="cta-title">Let's Build Something Amazing</h2>
             <p class="cta-text">
-                Currently at Valory as a Python Engineer, building autonomous agents and cross-chain DeFi solutions.<br>
-                Open to collaborations, hackathons, and innovative AI agent projects.
+                Currently at Valory as a Python Engineer, I'm passionate about building autonomous agents and cross-chain DeFi solutions. 
+                I'm always excited to collaborate on innovative projects, participate in hackathons, and explore new frontiers in AI and blockchain technology.
             </p>
-            <a href="mailto:divyanautiyal07@gmail.com" class="cta-button">Get In Touch</a>
+            <a href="mailto:divyanautiyal07@gmail.com" class="cta-button">
+                💬 Get In Touch
+            </a>
         </section>
     </div>
 
     <script>
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 15;
+        // Create starfield
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 200;
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                
-                // Random colors for Web3 theme
-                const colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.background = `linear-gradient(45deg, ${color}, ${color}80)`;
-                
-                particlesContainer.appendChild(particle);
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = `star ${Math.random() < 0.6 ? 'small' : Math.random() < 0.8 ? 'medium' : 'large'}`;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                starsContainer.appendChild(star);
             }
+            
+            // Add occasional shooting stars
+            setInterval(() => {
+                if (Math.random() < 0.3) {
+                    const shootingStar = document.createElement('div');
+                    shootingStar.className = 'shooting-star';
+                    shootingStar.style.left = Math.random() * 100 + '%';
+                    shootingStar.style.top = Math.random() * 50 + '%';
+                    starsContainer.appendChild(shootingStar);
+                    
+                    setTimeout(() => {
+                        if (shootingStar.parentNode) {
+                            shootingStar.parentNode.removeChild(shootingStar);
+                        }
+                    }, 3000);
+                }
+            }, 8000);
         }
         
-        // Create neural network nodes and connections
-        function createNeuralNetwork() {
-            const neuralContainer = document.getElementById('neuralBg');
-            const nodeCount = 8;
-            const nodes = [];
+        // Create floating code fragments
+        function createCodeFragments() {
+            const codeContainer = document.getElementById('codeFragments');
+            const codeSnippets = [
+                'def autonomous_agent():',
+                'smart_contract.deploy()',
+                'blockchain.validate()',
+                'agent.execute_strategy()',
+                'web3.connect()',
+                'await async_function()',
+                'const defi = new Protocol()',
+                'python_rocks = True',
+                'if blockchain.is_valid:',
+                'return success',
+                'class AutonomousAgent:',
+                '// Building the future',
+                'npm install web3',
+                'git commit -m "epic"',
+                'sudo make me_coffee'
+            ];
             
-            // Create nodes
-            for (let i = 0; i < nodeCount; i++) {
-                const node = document.createElement('div');
-                node.className = 'neural-node';
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                node.style.left = x + '%';
-                node.style.top = y + '%';
-                node.style.animationDelay = Math.random() * 3 + 's';
-                neuralContainer.appendChild(node);
-                nodes.push({ element: node, x, y });
+            setInterval(() => {
+                if (Math.random() < 0.4) {
+                    const fragment = document.createElement('div');
+                    fragment.className = 'code-fragment';
+                    fragment.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                    fragment.style.left = Math.random() * 100 + '%';
+                    fragment.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    fragment.style.animationDelay = Math.random() * 2 + 's';
+                    
+                    codeContainer.appendChild(fragment);
+                    
+                    setTimeout(() => {
+                        if (fragment.parentNode) {
+                            fragment.parentNode.removeChild(fragment);
+                        }
+                    }, 20000);
+                }
+            }, 3000);
+        }
+        
+        // Smooth scroll reveal animations
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+        
+        // Elegant cursor trail
+        function initCursorTrail() {
+            const trail = [];
+            const trailLength = 8;
+            
+            for (let i = 0; i < trailLength; i++) {
+                const trailDot = document.createElement('div');
+                trailDot.className = 'cursor-trail';
+                document.body.appendChild(trailDot);
+                trail.push(trailDot);
             }
             
-            // Create connections between nearby nodes
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const distance = Math.sqrt(
-                        Math.pow(nodes[i].x - nodes[j].x, 2) + 
-                        Math.pow(nodes[i].y - nodes[j].y, 2)
-                    );
+            let mouseX = 0;
+            let mouseY = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            
+            function animateTrail() {
+                let currentX = mouseX;
+                let currentY = mouseY;
+                
+                trail.forEach((dot, index) => {
+                    dot.style.left = currentX - 3 + 'px';
+                    dot.style.top = currentY - 3 + 'px';
+                    dot.style.opacity = (trailLength - index) / trailLength * 0.6;
+                    dot.style.transform = `scale(${(trailLength - index) / trailLength})`;
                     
-                    if (distance < 40) { // Only connect nearby nodes
-                        const connection = document.createElement('div');
-                        connection.className = 'neural-connection';
-                        
-                        const angle = Math.atan2(nodes[j].y - nodes[i].y, nodes[j].x - nodes[i].x);
-                        const length = distance;
-                        
-                        connection.style.left = nodes[i].x + '%';
-                        connection.style.top = nodes[i].y + '%';
-                        connection.style.width = length + 'vw';
-                        connection.style.transform = `rotate(${angle}rad)`;
-                        connection.style.transformOrigin = '0 0';
-                        connection.style.animationDelay = Math.random() * 4 + 's';
-                        
-                        neuralContainer.appendChild(connection);
-                    }
+                    currentX += (mouseX - currentX) * 0.3;
+                    currentY += (mouseY - currentY) * 0.3;
+                });
+                
+                requestAnimationFrame(animateTrail);
+            }
+            
+            animateTrail();
+        }
+        
+        // Elegant hover effects
+        function initHoverEffects() {
+            const cards = document.querySelectorAll('.project-card, .skill-category, .featured-project');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform += ' scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = card.style.transform.replace(' scale(1.02)', '');
+                });
+            });
+        }
+        
+        // Parallax effect for background
+        function initParallax() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.2;
+                const stars = document.getElementById('stars');
+                const codeFragments = document.getElementById('codeFragments');
+                
+                stars.style.transform = `translateY(${rate}px)`;
+                codeFragments.style.transform = `translateY(${rate * 0.5}px)`;
+            });
+        }
+        
+        // Typewriter effect for intro text
+        function typeWriter(element, text, speed = 30) {
+            let i = 0;
+            const originalText = text;
+            element.textContent = '';
+            
+            function type() {
+                if (i < originalText.length) {
+                    element.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
                 }
             }
+            
+            // Start typing after a delay
+            setTimeout(type, 1000);
         }
         
-        // Initialize effects
-        createParticles();
-        createNeuralNetwork();
+        // Konami code for special effect
+        let konamiCode = '';
+        const konamiSequence = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightKeyBKeyA';
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode += e.code;
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode = konamiCode.slice(-konamiSequence.length);
+            }
+            
+            if (konamiCode === konamiSequence) {
+                // Create star shower effect
+                const stars = document.getElementById('stars');
+                for (let i = 0; i < 50; i++) {
+                    const shootingStar = document.createElement('div');
+                    shootingStar.className = 'shooting-star';
+                    shootingStar.style.left = Math.random() * 100 + '%';
+                    shootingStar.style.top = Math.random() * 100 + '%';
+                    shootingStar.style.animationDuration = '1s';
+                    stars.appendChild(shootingStar);
+                    
+                    setTimeout(() => {
+                        if (shootingStar.parentNode) {
+                            shootingStar.parentNode.removeChild(shootingStar);
+                        }
+                    }, 1000);
+                }
+                
+                // Change background temporarily
+                document.querySelector('.cosmos').style.background = 'radial-gradient(ellipse at center, #1a237e 0%, #000051 100%)';
+                
+                setTimeout(() => {
+                    document.querySelector('.cosmos').style.background = 'radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)';
+                }, 5000);
+                
+                konamiCode = '';
+            }
+        });
+        
+        // Easter egg: double-click for code rain
+        let clickCount = 0;
+        document.addEventListener('click', () => {
+            clickCount++;
+            setTimeout(() => {
+                clickCount = 0;
+            }, 500);
+            
+            if (clickCount === 3) {
+                // Triple click triggers code rain
+                const codeContainer = document.getElementById('codeFragments');
+                const rainSnippets = [
+                    'console.log("Hello World")',
+                    'npm install universe',
+                    'git push origin main',
+                    'docker run -it awesome',
+                    'python manage.py runserver',
+                    'const magic = true',
+                    'blockchain.mine()',
+                    'smart_contract.deploy()',
+                    'def solve_everything():'
+                ];
+                
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const fragment = document.createElement('div');
+                        fragment.className = 'code-fragment';
+                        fragment.textContent = rainSnippets[Math.floor(Math.random() * rainSnippets.length)];
+                        fragment.style.left = Math.random() * 100 + '%';
+                        fragment.style.animationDuration = '3s';
+                        fragment.style.color = `hsl(${Math.random() * 60 + 180}, 70%, 60%)`;
+                        
+                        codeContainer.appendChild(fragment);
+                        
+                        setTimeout(() => {
+                            if (fragment.parentNode) {
+                                fragment.parentNode.removeChild(fragment);
+                            }
+                        }, 3000);
+                    }, i * 100);
+                }
+                
+                clickCount = 0;
+            }
+        });
+        
+        // Initialize everything
+        window.addEventListener('load', () => {
+            createStars();
+            createCodeFragments();
+            initScrollAnimations();
+            initCursorTrail();
+            initHoverEffects();
+            initParallax();
+            
+            // Add subtle entrance animation to header
+            const header = document.querySelector('.header');
+            header.style.opacity = '0';
+            header.style.transform = 'translateY(50px)';
+            
+            setTimeout(() => {
+                header.style.transition = 'all 1.5s ease';
+                header.style.opacity = '1';
+                header.style.transform = 'translateY(0)';
+            }, 500);
+        });
+        
+        // Smooth scrolling for better experience
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        // Add some random twinkling to existing stars
+        setInterval(() => {
+            const stars = document.querySelectorAll('.star');
+            const randomStar = stars[Math.floor(Math.random() * stars.length)];
+            if (randomStar) {
+                randomStar.style.opacity = '1';
+                randomStar.style.transform = 'scale(1.5)';
+                setTimeout(() => {
+                    randomStar.style.opacity = '';
+                    randomStar.style.transform = '';
+                }, 200);
+            }
+        }, 2000);
     </script>
 </body>
 </html>
