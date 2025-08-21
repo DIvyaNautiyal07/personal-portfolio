@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divya Nautiyal - Blockchain Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .hero {
+            margin-bottom: 1rem;
+        }
+        
+        .name {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #ff6b6b 50%, #4ecdc4 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(0, 212, 255, 0.05);
+        }
+        
+        .contact-item:hover {
+            color: #00d4ff;
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .section {
+            padding: 4rem 0;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #00d4ff;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #ff6b6b);
+            border-radius: 2px;
+        }
+        
+        .featured-project {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .featured-project:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin: 0;
+        }
+        
+        .featured-badge {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .project-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #d0d0d0;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .project-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .project-card:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.1);
+        }
+        
+        .project-card h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .skill-category {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .skill-category h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .skill-list {
+            color: #d0d0d0;
+            font-size: 0.95rem;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-text {
+            font-size: 1.1rem;
+            color: #d0d0d0;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #00d4ff, #4ecdc4);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2.5rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-project {
+                padding: 2rem;
+            }
+        }
+        
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        .glow {
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1 class="name glow">Divya Nautiyal</h1>
+                <p class="title">Python Blockchain Developer & AI Engineer</p>
+            </div>
+            <div class="contact-info">
+                <a href="mailto:divyanautiyal07@gmail.com" class="contact-item">
+                    📧 divyanautiyal07@gmail.com
+                </a>
+                <a href="https://github.com/divyanautiyal" class="contact-item" target="_blank">
+                    🔗 GitHub
+                </a>
+                <a href="https://linkedin.com/in/divyanautiyal" class="contact-item" target="_blank">
+                    💼 LinkedIn
+                </a>
+                <span class="contact-item">📍 Jabalpur, MP</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="section">
+            <h2 class="section-title">Featured Project</h2>
+            <div class="featured-project">
+                <div class="project-header">
+                    <h3 class="project-title">Optimus - Cross-Chain DeFi Agent</h3>
+                    <span class="featured-badge">Latest Work</span>
+                </div>
+                <p class="project-description">
+                    Built at <span class="highlight">Valory</span> using the Open Autonomy Framework, Optimus is an autonomous agent that intelligently participates in DeFi campaigns across multiple chains including <span class="highlight">Optimism</span> and <span class="highlight">Mode</span>. 
+                </p>
+                <p class="project-description">
+                    The agent features <span class="highlight">multi-chain support</span>, seamless integration with major DEXs (Velodrome, Uniswap, Balancer, Sturdy), and intelligent decision-making capabilities for optimal liquidity provision and yield farming strategies.
+                </p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Solidity</span>
+                    <span class="tech-tag">Open Autonomy</span>
+                    <span class="tech-tag">Tenderly</span>
+                    <span class="tech-tag">Cross-Chain</span>
+                    <span class="tech-tag">DeFi</span>
+                    <span class="tech-tag">Autonomous Agents</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Other Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>🏠 RealEstate Blockchain Platform</h3>
+                    <p>Developed a complete blockchain-based platform for real estate tokenization with DAO governance and ERC20 property ownership tokens.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Solidity</span>
+                        <span class="tech-tag">Polygon</span>
+                        <span class="tech-tag">Web3</span>
+                        <span class="tech-tag">DAO</span>
+                        <span class="tech-tag">ERC20</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>🖼️ NFT Marketplace</h3>
+                    <p>Created a decentralized NFT marketplace on Ethereum with advanced features like Lazy Minting and ERC1155 standard implementation.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Solidity</span>
+                        <span class="tech-tag">Ethereum</span>
+                        <span class="tech-tag">IPFS</span>
+                        <span class="tech-tag">ERC1155</span>
+                        <span class="tech-tag">Lazy Minting</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>🧠 Invoice Parser using GPT-4 Vision</h3>
+                    <p>Built an AI-powered invoice parsing system with LangChain integration and RAG architecture for intelligent data extraction and processing.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">GPT-4 Vision</span>
+                        <span class="tech-tag">LangChain</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">RAG</span>
+                        <span class="tech-tag">Azure Search</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>📊 LLM Data Extraction Tool</h3>
+                    <p>Developed a comprehensive tool for extracting and summarizing critical information from unstructured data using OpenAI ChatGPT APIs.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">OpenAI API</span>
+                        <span class="tech-tag">LangChain</span>
+                        <span class="tech-tag">OCR</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>🔗 Blockchain & Web3</h3>
+                    <div class="skill-list">
+                        Solidity • Web3.js • Ether.js • IPFS<br>
+                        Chainlink • Hardhat • Truffle • Infura<br>
+                        DeFi Protocols • Cross-Chain Solutions
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>🐍 Programming</h3>
+                    <div class="skill-list">
+                        Python • JavaScript • Node.js<br>
+                        C# • ASP.NET Core<br>
+                        Git • REST APIs
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>🤖 AI/ML</h3>
+                    <div class="skill-list">
+                        LangChain • OpenAI ChatGPT<br>
+                        GPT-4 Vision • OCR<br>
+                        RAG Architecture • Image Processing
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>💾 Database & Tools</h3>
+                    <div class="skill-list">
+                        SQL • ElasticSearch<br>
+                        Azure Search • Visual Studio<br>
+                        VS Code • Tenderly
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2 class="cta-title">Let's Build the Future of Web3</h2>
+                <p class="cta-text">
+                    Currently at Valory as a Python Engineer, building autonomous agents and cross-chain DeFi solutions.<br>
+                    Open to collaborations, hackathons, and innovative blockchain projects.
+                </p>
+                <a href="mailto:divyanautiyal07@gmail.com" class="cta-button">Get In Touch</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
